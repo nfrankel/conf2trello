@@ -1,0 +1,14 @@
+form {
+  display: table;
+  border-spacing: 5px;
+}
+p {
+  display: table-row;
+}
+input {
+  display: table-cell;
+  width: 400px;
+}
+label {
+  display: table-cell;
+}

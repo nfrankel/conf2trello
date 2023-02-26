@@ -1,0 +1,43 @@
+{
+  "manifest_version": 2,
+  "name": "Conf2Trello",
+  "version": "1.0",
+  "description": "Add a conference to my Trello board",
+  "permissions": [ "storage" ],
+  "options_ui": {
+    "page": "settings/options.html"
+  },
+  "browser_action": {
+    "default_area": "navbar",
+    "default_icon": "icons/trello-tile.svg"
+  },
+  "content_scripts" : [{
+    "matches": [ "https://sessionize.com/*" ],
+    "js": [
+      "model.js",
+      "content/common.js",
+      "content/sessionize.js"
+    ]
+  },
+    {
+      "matches": [ "https://www.papercall.io/*" ],
+      "js": [
+        "model.js",
+        "content/locations.js",
+        "content/common.js",
+        "content/papercall.js"
+      ]
+  }],
+  "background": {
+    "scripts": [
+      "model.js",
+      "scripts/countries.js",
+      "scripts/background.js"
+    ]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "nicolas@frankel.ch"
+    }
+  }
+}
