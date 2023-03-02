@@ -22,7 +22,7 @@ function getConference() {
 
     const calendars = document.querySelectorAll('.fa-calendar')
     const start = calendars[0].parentElement.parentElement.getElementsByTagName('h2')[0].innerText
-    const end = calendars[1].parentElement.parentElement.getElementsByTagName('h2')[0].innerText
+    const end = calendars[1]?.parentElement?.parentElement?.getElementsByTagName('h2')[0]?.innerText ?? start
 
     const deadline = Array.from(document.querySelectorAll('.text-navy'))
                           .filter(elem => elem.textContent.startsWith('Call closes'))[0]
@@ -32,9 +32,9 @@ function getConference() {
                              .parentElement.parentElement.getElementsByTagName('h2')[0].innerText
 
     const website = document.getElementsByClassName('fa-globe')[0]
-                            .parentElement.parentElement.getElementsByTagName('h2')[0]
-                            .getElementsByTagName('a')[0]
-                            .href
+                            ?.parentElement.parentElement.getElementsByTagName('h2')[0]
+                            ?.getElementsByTagName('a')[0]
+                            ?.href ?? window.location.href
 
     return new Conference(name,
         parseCountry(location),
