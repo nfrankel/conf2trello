@@ -15,16 +15,21 @@ const loc2labels = {
 
 const country2locs = {
     'Austria' : 'Northern Europe',
-    'Canada' : 'Northern America',
+    'Bulgaria' : 'Central Europe',
+    'Canada' : 'North America',
     'Croatia' : 'Central Europe',
     'Denmark' : 'Northern Europe',
     'France' : 'Southern Europe',
     'Germany' : 'Northern Europe',
     'Greece' : 'Southern Europe',
     'Ireland' : 'Northern Europe',
+    'Netherlands' : 'Northern Europe',
     'Norway' : 'Northern Europe',
+    'Portugal' : 'Southern Europe',
     'Romania' : 'Central Europe',
+    'Serbia' : 'Central Europe',
     'Spain' : 'Southern Europe',
     'Switzerland' : 'Northern Europe',
+    'United Kingdom' : 'Northern Europe',
     'United States' : 'Northern America'
 }
