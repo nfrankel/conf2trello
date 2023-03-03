@@ -36,7 +36,7 @@ function getConference() {
                             ?.getElementsByTagName('a')[0]
                             ?.href ?? window.location.href
 
-    return new Conference(name,
+    const conference = new Conference(name,
         parseCountry(location),
         website,
         window.location.href,
@@ -44,4 +44,7 @@ function getConference() {
         parseDate(end),
         parseDate(deadline)
     )
+
+    console.log(conference)
+    return conference
 }
