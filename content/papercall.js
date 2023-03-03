@@ -52,7 +52,7 @@ function getConference() {
     const website = document.querySelector('div.subheader__group a').innerText
 
     const conference = new Conference(parseTitle(title),
-        loc2countries[data.location],
+        loc2countries[data.location] ?? data.location,
         website,
         window.location.href,
         data.start,
