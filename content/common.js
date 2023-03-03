@@ -1,4 +1,9 @@
 browser.runtime.onMessage.addListener((message, sender) => {
     const conference = getConference()
-    return Promise.resolve(conference)
+    const isAsync = getConference.constructor.name === 'AsyncFunction'
+    if (isAsync) {
+        return conference
+    } else {
+        return Promise.resolve(conference)
+    }
 });

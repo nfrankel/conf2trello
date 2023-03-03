@@ -18,8 +18,7 @@
       "content/common.js",
       "content/sessionize.js"
     ]
-  },
-    {
+  },{
       "matches": [ "https://www.papercall.io/*" ],
       "js": [
         "model.js",
@@ -27,6 +26,13 @@
         "content/common.js",
         "content/papercall.js"
       ]
+  },{
+    "matches": [ "https://eventil.com/events/*" ],
+    "js": [
+      "model.js",
+      "content/common.js",
+      "content/eventil.js"
+    ]
   }],
   "background": {
     "scripts": [
