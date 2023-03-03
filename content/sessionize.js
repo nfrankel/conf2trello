@@ -7,7 +7,7 @@ function parseDate(dateString) {
     const day = parseInt(parts[0])
     const month = months.findIndex(item => parts[1] == item)
     const year = parseInt(parts[2])
-    const date = new Date(year, month, day)
+    const date = new Date(year, month, day, 12, 0, 0)
     return date
 }
 
