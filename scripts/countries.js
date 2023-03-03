@@ -31,5 +31,5 @@ const country2locs = {
     'Spain' : 'Southern Europe',
     'Switzerland' : 'Northern Europe',
     'United Kingdom' : 'Northern Europe',
-    'United States' : 'Northern America'
+    'United States' : 'North America'
 }
