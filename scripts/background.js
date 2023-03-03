@@ -16,8 +16,10 @@ function readSettings() {
            })
 }
 
-async function createTrelloCard(conference) {
+async function createTrelloCard(tabIdAndConference) {
+    console.log(tabIdAndConference)
     const url = new URL(trelloRoot)
+    const conference = tabIdAndConference.conference
     url.searchParams.append('key', settings.key)
     url.searchParams.append('token', settings.token)
     url.searchParams.append('idList', settings.listId)
@@ -30,32 +32,35 @@ async function createTrelloCard(conference) {
     }
     const response = await fetch(url.href, { method : 'POST'})
     const json = await response.json()
-    return { conference : conference, id: json.id }
+    conference.id = json.id
+    conference.shortUrl = json.shortUrl
+    conference.url = json.url
+    return { tabId:tabIdAndConference.tabId, conference : conference }
 }
 
-async function addSite(conferenceAndId) {
-    await addCustomField(conferenceAndId, '5d7d4c1935fdfa4694ba4aee', 'text', conferenceAndId.conference.website)
-    return conferenceAndId
+async function addSite(tabIdAndConference) {
+    await addCustomField(tabIdAndConference, '5d7d4c1935fdfa4694ba4aee', 'text', tabIdAndConference.conference.website)
+    return tabIdAndConference
 }
 
-async function addCfp(conferenceAndId) {
-    await addCustomField(conferenceAndId, '5d7d4c3f916ba638f02eef34', 'text', conferenceAndId.conference.cfp)
-    return conferenceAndId
+async function addCfp(tabIdAndConference) {
+    await addCustomField(tabIdAndConference, '5d7d4c3f916ba638f02eef34', 'text', tabIdAndConference.conference.cfp)
+    return tabIdAndConference
 }
 
-async function addStartDate(conferenceAndId) {
-    await addCustomField(conferenceAndId, '5d7d4c0179ae055927330752', 'date', conferenceAndId.conference.start)
-    return conferenceAndId
+async function addStartDate(tabIdAndConference) {
+    await addCustomField(tabIdAndConference, '5d7d4c0179ae055927330752', 'date', tabIdAndConference.conference.start)
+    return tabIdAndConference
 }
 
-async function addEndDate(conferenceAndId) {
-    await addCustomField(conferenceAndId, '5d7d4c0c9742fc23ee16e9de', 'date', conferenceAndId.conference.end)
-    return conferenceAndId
+async function addEndDate(tabIdAndConference) {
+    await addCustomField(tabIdAndConference, '5d7d4c0c9742fc23ee16e9de', 'date', tabIdAndConference.conference.end)
+    return tabIdAndConference
 }
 
-async function addCustomField(conferenceAndId, idCustomField, type, value) {
-    const conference = conferenceAndId.conference
-    const id = conferenceAndId.id
+async function addCustomField(tabIdAndConference, idCustomField, type, value) {
+    const conference = tabIdAndConference.conference
+    const id = conference.id
     const url = new URL(`${trelloRoot}/${id}/customField/${idCustomField}/item`)
     url.searchParams.append('key', settings.key)
     url.searchParams.append('token', settings.token)
@@ -64,20 +69,28 @@ async function addCustomField(conferenceAndId, idCustomField, type, value) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ value : { [type] : value }})
     })
-    return conferenceAndId
+    return tabIdAndConference
+}
+
+async function confirmCreation(tabIdAndConference) {
+    browser.tabs.sendMessage(tabIdAndConference.tabId, {
+        action: 'confirm',
+        conference: tabIdAndConference.conference
+    })
 }
 
 function sendMessage(tab) {
       browser.tabs
-             .sendMessage(tab.id, {})
+             .sendMessage(tab.id, {
+                action: 'scrape',
+                tabId: tab.id
+             })
              .then(createTrelloCard)
              .then(addSite)
              .then(addCfp)
              .then(addStartDate)
              .then(addEndDate)
-             .then(conferenceAndId => {
-                console.log(`Card ${conferenceAndId.conference.name} has been created [id: ${conferenceAndId.id}] `)
-             })
+             .then(confirmCreation)
              .catch(error => {
                  console.error(`Error: ${error}`)
              })
