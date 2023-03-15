@@ -44,13 +44,14 @@ async function getConference() {
     const title = document.querySelector('h1.hero-title').innerText.replace(/ \d{4}/, '')
     const subtitle = document.querySelector('.hero-event-date').innerText
     const data = parseSubtitle(subtitle)
-    const website = document.querySelector('ul.widget-content > li > a').href
+    const website = new URL(document.querySelector('ul.widget-content > li > a').href)
+    website.search = ''
 
     const { deadline: deadline, cfp: cfp } = await fetchCfpData()
 
     const conference = new Conference(title,
         data.country,
-        website,
+        website.toString(),
         cfp,
         data.start,
         data.end,
