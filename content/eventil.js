@@ -24,7 +24,7 @@ function parseSubtitle(subtitle) {
     }
 }
 
-async function fetchDeadline() {
+async function fetchCfpData() {
     const url = new URL(`${window.location.href}/cfp`)
     const response = await fetch(url.href, { method : 'GET'})
     const html = await response.text()
@@ -33,7 +33,10 @@ async function fetchDeadline() {
     const deadline = document.querySelector('h6 > span').innerText
     const regex = /([a-zA-Z]{3}) (\d\d?), (\d{4})/g
     const parts = regex.exec(deadline)
-    return parseDate(parts[3], parts[1], parts[2])
+    return {
+        deadline: parseDate(parts[3], parts[1], parts[2]),
+        cfp: document.querySelector('.event a.btn-primary').href
+    }
 }
 
 async function getConference() {
@@ -43,12 +46,12 @@ async function getConference() {
     const data = parseSubtitle(subtitle)
     const website = document.querySelector('ul.widget-content > li > a').href
 
-    const deadline = await fetchDeadline()
+    const { deadline: deadline, cfp: cfp } = await fetchCfpData()
 
     const conference = new Conference(title,
         data.country,
         website,
-        window.location.href,
+        cfp,
         data.start,
         data.end,
         deadline
