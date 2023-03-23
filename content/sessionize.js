@@ -13,7 +13,12 @@ function parseDate(dateString) {
 
 function parseCountry(locationString) {
     const parts = locationString.split(', ')
-    return parts[parts.length - 1]
+    const country = parts[parts.length - 1]
+    if (country == 'United States') {
+        return 'USA'
+    } else {
+        return country
+    }
 }
 
 function getConference() {
