@@ -1,3 +1,5 @@
+'use strict'
+
 browser.runtime.onMessage.addListener(message => {
     switch(message.action) {
         case 'scrape':
@@ -15,4 +17,4 @@ browser.runtime.onMessage.addListener(message => {
             window.alert(`Conference ${message.conference.name} created successfully at ${message.conference.shortUrl}`)
             break
     }
-});
+})

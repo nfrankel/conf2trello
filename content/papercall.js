@@ -47,16 +47,16 @@ function getConference() {
 
     const title = document.getElementsByClassName('subheader__title')[0].innerText
     const subtitle = document.getElementsByClassName('subheader__subtitle')[0].innerText
-    const data = parseSubtitle(subtitle)
+    const { location: location, start: start, end: end } = parseSubtitle(subtitle)
     const deadline = Array.from(document.querySelectorAll('h3 td'))[1].innerText
     const website = document.querySelector('div.subheader__group a').innerText
 
     const conference = new Conference(parseTitle(title),
-        loc2countries[data.location] ?? data.location,
+        loc2countries[location] ?? location,
         website,
         window.location.href,
-        data.start,
-        data.end,
+        start,
+        end,
         parseDueDate(deadline)
     )
 

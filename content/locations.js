@@ -1,3 +1,5 @@
+'use strict'
+
 const loc2countries = {
     'Vienna' : 'Austria',
     'Bucharest' : 'Romania',
