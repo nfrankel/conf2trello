@@ -3,7 +3,7 @@
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 function parseDate(year, monthString, day) {
-    const month = months.findIndex(item => monthString == item)
+    const month = months.findIndex(item => monthString === item)
     return new Date(year, month, day, 12, 0, 0)
 }
 

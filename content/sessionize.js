@@ -5,16 +5,15 @@ const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 function parseDate(dateString) {
     const parts = dateString.split(' ')
     const day = parseInt(parts[0])
-    const month = months.findIndex(item => parts[1] == item)
+    const month = months.findIndex(item => parts[1] === item)
     const year = parseInt(parts[2])
-    const date = new Date(year, month, day, 12, 0, 0)
-    return date
+    return new Date(year, month, day, 12, 0, 0)
 }
 
 function parseCountry(locationString) {
     const parts = locationString.split(', ')
     const country = parts[parts.length - 1]
-    if (country == 'United States') {
+    if (country === 'United States') {
         return 'USA'
     } else {
         return country

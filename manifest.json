@@ -33,6 +33,13 @@
       "content/common.js",
       "content/eventil.js"
     ]
+  },{
+    "matches": [ "https://conference-hall.io/public/event/*" ],
+    "js": [
+      "model.js",
+      "content/common.js",
+      "content/conferencehall.js"
+    ]
   }],
   "background": {
     "scripts": [

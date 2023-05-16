@@ -15,7 +15,7 @@ function parseDateParts(dateParts) {
     const year = parseInt(dateParts[dateParts.length - 1])
     const day = parseInt(dateParts[dateParts.length - 2])
     const monthString = dateParts[dateParts.length - 3]
-    const month = months.findIndex(item => monthString == item)
+    const month = months.findIndex(item => monthString === item)
     return new Date(year, month, day, 12, 0, 0)
 }
 

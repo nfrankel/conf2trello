@@ -12,7 +12,6 @@ browser.runtime.onMessage.addListener(message => {
             } else {
                 return Promise.resolve({ tabId: message.tabId, conference: conference })
             }
-            break
         case 'confirm':
             window.alert(`Conference ${message.conference.name} created successfully at ${message.conference.shortUrl}`)
             break
